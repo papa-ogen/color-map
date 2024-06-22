@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "Your Figma Plugin",
   "main": "code.js",
+  "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
-    "watch": "npm run build -- --watch"
+    "watch": "npm run build -- --watch",
+    "test": "NODE_OPTIONS='--experimental-specifier-resolution=node' tape 'src/**/*.test.js' | tap-spec"
   },
   "author": "",
   "license": "",
@@ -19,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
+    "tap-spec": "^5.0.0",
     "tape": "^5.8.1",
     "typescript": "^5.5.2"
   },

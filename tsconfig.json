@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "es6",
     "lib": ["es6"],
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "__test__/**/*.ts", "custom.d.ts"]
+  "include": ["**/*", "src/**/*.ts", "custom.d.ts"]
 }

@@ -3,7 +3,7 @@
  * @param hex - The hex color string (e.g., "#RRGGBB").
  * @returns An object with properties h, s, and l representing the HSL values.
  */
-function hexToHsl(hex: string): { h: number; s: number; l: number } {
+export function hexToHsl(hex: string): { h: number; s: number; l: number } {
   // Remove the hash at the start if it's there
   hex = hex.replace(/^#/, "");
 
@@ -56,7 +56,7 @@ function hexToHsl(hex: string): { h: number; s: number; l: number } {
  * @param l - Lightness (0-100)
  * @returns The hex color string (e.g., "#RRGGBB").
  */
-function hslToHex(h: number, s: number, l: number): string {
+export function hslToHex(h: number, s: number, l: number): string {
   s /= 100;
   l /= 100;
 
@@ -101,60 +101,11 @@ function hslToHex(h: number, s: number, l: number): string {
   return "#" + hex.toString(16).padStart(6, "0").toUpperCase();
 }
 
-function createHslPalette(hsl: { h: number; s: number; l: number }) {
+export function createHslPalette(hsl: { h: number; s: number; l: number }) {
   const palette = [];
   for (let i = 0; i <= 10; i++) {
     palette.push({ h: hsl.h, s: hsl.s, l: i * 10 });
   }
 
   return palette;
-}
-
-figma.parameters.on("input", ({ query, result }: ParameterInputEvent) => {
-  if (query === "") {
-    result.setSuggestions([]);
-  } else {
-    result.setSuggestions([query]);
-  }
-});
-figma.on("run", ({ parameters }: RunEvent) => {
-  if (!parameters) {
-    return;
-  }
-  startPluginWithParameters(parameters);
-
-  figma.closePlugin();
-});
-
-async function startPluginWithParameters(parameters: ParameterValues) {
-  if (!parameters) return;
-
-  const { primary } = parameters;
-
-  const palette = createHslPalette(hexToHsl(primary));
-  const hexPalette = palette.map((color) =>
-    hslToHex(color.h, color.s, color.l)
-  );
-
-  const frame = figma.createFrame();
-  const solidPaint = figma.util.solidPaint;
-
-  frame.name = "Color Palette";
-  frame.resize(1600, 100);
-  frame.backgrounds = [solidPaint("#E9E9E9")];
-  frame.y = -200;
-
-  figma.currentPage.appendChild(frame);
-
-  for (let i = 0; i < hexPalette.length; i++) {
-    const rect = figma.createRectangle();
-    rect.x = i * 150;
-    rect.fills = [solidPaint(hexPalette[i])];
-    rect.name = `Color ${hexPalette[i]}`;
-
-    frame.appendChild(rect);
-  }
-
-  // figma.viewport.scrollAndZoomIntoView(frame);
-  figma.notify(`Created ${hexPalette.length} rectangles`);
 }

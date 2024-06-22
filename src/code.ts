@@ -156,5 +156,5 @@ async function startPluginWithParameters(parameters: ParameterValues) {
   }
 
   // figma.viewport.scrollAndZoomIntoView(frame);
-  figma.notify(`Created ${hexPalette.length} rectangles`);
+  figma.notify(`Palette created!`);
 }

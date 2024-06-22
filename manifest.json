@@ -2,7 +2,7 @@
   "name": "color-map",
   "id": "1384920460557179562",
   "api": "1.0.0",
-  "main": "build/code.js",
+  "main": "dist/code.js",
   "capabilities": [],
   "enableProposedApi": false,
   "documentAccess": "dynamic-page",
